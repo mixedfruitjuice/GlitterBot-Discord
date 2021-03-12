@@ -2,6 +2,7 @@
 
 const Discord = require("discord.js");
 require('dotenv').config();
+const config = require("./config.js")
 var cron = require('node-cron');
 const axios = require("axios");
 
@@ -12,16 +13,17 @@ var images = null;
 var options = [];
 
 this.sendImage = function (type, msg) {
-    if (!type) {
-        type = "generic"
-    } else if (!options.includes(type)) {
+    console.log(type)
+    var category = type ? type : "generic"
+    if (!options.includes(category)) {
         if (msg) {
-            msg.reply(`${type} is not a valid option, valid options are: ` + options)
+            msg.reply(`${category} is not a valid option, valid options are: ` + options)
         }
     } else {
-        var index = Math.floor(Math.random() * images[type].length)
-        console.log(images[type].length + " chose " + index)
-        var image = images[type][index]
+        console.log("category: " + category)
+        var index = Math.floor(Math.random() * images[category].length)
+        console.log(images[category].length + " chose " + index)
+        var image = images[category][index]
         MainChannel.send(`https://super.vette.website/${image}`);
     }
 }
@@ -33,17 +35,28 @@ client.on('ready', () => {
             images = response.data;
             options = Object.keys(images);
         }).catch(console.log)
-
-    client.channels.fetch('752599526958694601').then(channel => {
+    client.channels.fetch(config.channelId).then(channel => {
+      console.log(channel.name)
         MainChannel = channel;
     }).catch(console.error);
 })
 
-client.on('message', msg => {
-    const msgsplit = msg.content.split(" ")
-    if (msgsplit[0] === 'ping') {
-        this.sendImage(msgsplit[1], msg)
+client.on('message', async msg => {
+    if (msg.author.bot) return;
+    if (!msg.guild) return;
+    if (!msg.content.startsWith(config.commandPrefix)) return;
+    if (!msg.member)
+    msg.member = await msg.guild.fetchMember(msg);
+
+    let args = msg.content.slice(config.commandPrefix.length).trim();
+    args = args.split(" ");
+    const cmd = args.shift().toLowerCase();
+    if (cmd === config.commands.sendImage) {
+      console.log("sending image")
+        console.log(args)
+        this.sendImage(args[0], msg)
     }
+    
 });
 
 client.login(process.env.DJS_TOKEN);
