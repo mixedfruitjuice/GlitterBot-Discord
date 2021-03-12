@@ -17,4 +17,4 @@ Usage:
 3. Edit the .env.example and replace the value of ```DJS_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX``` with your access token provided by your discord application
 4. Start GlitterBot with ```node index.js``` and receive a beautiful glitterplaatje each morning
 
-PS you can also get a specific glitterplaatje with ```ping {category}```. For example ```ping tue``` for a glitterplaatje from Tuesday.
+PS you can also get a specific glitterplaatje with ```&image {category}```. For example ```&image tue``` for a glitterplaatje from Tuesday. The command and prefix can be changed in ```config.js```
