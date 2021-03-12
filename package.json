@@ -1,0 +1,26 @@
+{
+  "name": "glitterbot",
+  "version": "1.0.0",
+  "description": "Beautiful glitterplaatjes to make you happy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mixedfruitjuice/GlitterBot-Discord.git"
+  },
+  "author": "Naugrim and Mixedfruitjuice",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mixedfruitjuice/GlitterBot-Discord/issues"
+  },
+  "homepage": "https://github.com/mixedfruitjuice/GlitterBot-Discord#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
+    "node-cron": "^3.0.0",
+    "nodemon": "^2.0.7"
+  }
+}
